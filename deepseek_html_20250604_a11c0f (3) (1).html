@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা ক্যাপশন জেনারেটর</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2E7D32;
+            --background-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #212121;
+            --text-light: #757575;
+            --sad-color: #5C6BC0;
+            --romantic-color: #EC407A;
+            --motivational-color: #FFA000;
+            --funny-color: #FF5722;
+            --friendship-color: #009688;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'SolaimanLipi', 'Bangla', Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .app-description {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .caption-box {
+            background-color: var(--card-color);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        .caption-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            min-height: 120px;
+            margin-bottom: 20px;
+            font-family: 'SolaimanLipi', 'Bangla', Arial, sans-serif;
+            transition: border 0.3s;
+        }
+        
+        .caption-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        
+        .customization-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .option-group {
+            margin-bottom: 20px;
+        }
+        
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+        
+        .option-group select,
+        .option-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .option-group select:focus,
+        .option-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .preview-box {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .preview-text {
+            max-width: 100%;
+            word-wrap: break-word;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+        
+        .btn-sad {
+            background-color: var(--sad-color);
+            color: white;
+        }
+        
+        .btn-romantic {
+            background-color: var(--romantic-color);
+            color: white;
+        }
+        
+        .btn-motivational {
+            background-color: var(--motivational-color);
+            color: white;
+        }
+        
+        .btn-funny {
+            background-color: var(--funny-color);
+            color: white;
+        }
+        
+        .btn-friendship {
+            background-color: var(--friendship-color);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .sample-captions {
+            margin-top: 40px;
+        }
+        
+        .sample-captions h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .sample-captions h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .caption-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .caption-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .caption-tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .caption-tab.active {
+            border-bottom-color: var(--primary-color);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .caption-tab[data-type="sad"] {
+            color: var(--sad-color);
+        }
+        
+        .caption-tab[data-type="romantic"] {
+            color: var(--romantic-color);
+        }
+        
+        .caption-tab[data-type="motivational"] {
+            color: var(--motivational-color);
+        }
+        
+        .caption-tab[data-type="funny"] {
+            color: var(--funny-color);
+        }
+        
+        .caption-tab[data-type="friendship"] {
+            color: var(--friendship-color);
+        }
+        
+        .caption-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .caption-item {
+            background-color: var(--card-color);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .caption-item.sad {
+            border-left-color: var(--sad-color);
+        }
+        
+        .caption-item.romantic {
+            border-left-color: var(--romantic-color);
+        }
+        
+        .caption-item.motivational {
+            border-left-color: var(--motivational-color);
+        }
+        
+        .caption-item.funny {
+            border-left-color: var(--funny-color);
+        }
+        
+        .caption-item.friendship {
+            border-left-color: var(--friendship-color);
+        }
+        
+        .caption-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            z-index: 1000;
+            display: none;
+            animation: fadeInOut 2s ease-in-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        }
+        
+        .background-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .background-option {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .background-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .background-option.selected {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .emoji-selector {
+            margin-top: 15px;
+        }
+        
+        .emoji-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        
+        .emoji-option {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .emoji-option:hover {
+            transform: scale(1.2);
+        }
+        
+        .settings-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .settings-toggle i {
+            margin-right: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .settings-toggle.collapsed i {
+            transform: rotate(-90deg);
+        }
+        
+        .settings-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .settings-content.collapsed {
+            max-height: 0;
+        }
+        
+        .settings-content.expanded {
+            max-height: 1500px;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .caption-box {
+                padding: 20px;
+            }
+            
+            .customization-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .preview-box {
+                padding: 20px;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+    <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+    <link href="https://fonts.maateen.me/siyam-rupali/font.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>বাংলা ক্যাপশন জেনারেটর</h1>
+            <div class="app-description">আপনার সোশ্যাল মিডিয়া পোস্টের জন্য অনন্য বাংলা ক্যাপশন তৈরি করুন</div>
+        </header>
+        
+        <div class="caption-box">
+            <h2>আপনার ক্যাপশন লিখুন</h2>
+            <textarea class="caption-input" id="caption-input" placeholder="এখানে আপনার বাংলা ক্যাপশন লিখুন অথবা নিচের বাটন থেকে জেনারেট করুন..."></textarea>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="generate-btn">
+                    <i class="fas fa-random"></i> র্যান্ডম ক্যাপশন
+                </button>
+                <button class="btn btn-sad" id="generate-sad-btn">
+                    <i class="fas fa-sad-tear"></i> স্যাড ক্যাপশন
+                </button>
+                <button class="btn btn-romantic" id="generate-romantic-btn">
+                    <i class="fas fa-heart"></i> রোমান্টিক ক্যাপশন
+                </button>
+                <button class="btn btn-motivational" id="generate-motivational-btn">
+                    <i class="fas fa-fire"></i> মোটিভেশনাল ক্যাপশন
+                </button>
+                <button class="btn btn-funny" id="generate-funny-btn">
+                    <i class="fas fa-laugh-squint"></i> ফানি ক্যাপশন
+                </button>
+                <button class="btn btn-friendship" id="generate-friendship-btn">
+                    <i class="fas fa-users"></i> ফ্রেন্ডশিপ ক্যাপশন
+                </button>
+            </div>
+            
+            <div class="settings-toggle" id="settings-toggle">
+                <i class="fas fa-chevron-down"></i>
+                <span>কাস্টমাইজেশন অপশন</span>
+            </div>
+            
+            <div class="settings-content expanded" id="settings-content">
+                <h2>কাস্টমাইজেশন অপশন</h2>
+                <div class="customization-options">
+                    <div class="option-group">
+                        <label for="font-family">ফন্ট স্টাইল</label>
+                        <select id="font-family">
+                            <option value="'SolaimanLipi', 'Bangla', sans-serif">সোলায়মান লিপি</option>
+                            <option value="'Kalpurush', 'Bangla', sans-serif">কালপুরুষ</option>
+                            <option value="'Siyam Rupali', 'Bangla', sans-serif">সিয়াম রূপালী</option>
+                            <option value="'Bangla', Arial, sans-serif">সাধারণ বাংলা</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="font-size">ফন্ট সাইজ</label>
+                        <select id="font-size">
+                            <option value="16px">ছোট</option>
+                            <option value="20px" selected>মধ্যম</option>
+                            <option value="24px">বড়</option>
+                            <option value="28px">অতিবড়</option>
+                            <option value="32px">বিশাল</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="text-align">টেক্সট অ্যালাইনমেন্ট</label>
+                        <select id="text-align">
+                            <option value="right">ডানদিকে</option>
+                            <option value="center" selected>মাঝখানে</option>
+                            <option value="left">বামদিকে</option>
+                            <option value="justify">জাস্টিফাই</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="option-group">
+                    <label>টেক্সট কালার</label>
+                    <div class="color-options">
+                        <div class="color-option selected" style="background-color: #212121;" data-color="#212121"></div>
+                        <div class="color-option" style="background-color: #4CAF50;" data-color="#4CAF50"></div>
+                        <div class="color-option" style="background-color: #2196F3;" data-color="#2196F3"></div>
+                        <div class="color-option" style="background-color: #9C27B0;" data-color="#9C27B0"></div>
+                        <div class="color-option" style="background-color: #F44336;" data-color="#F44336"></div>
+                        <div class="color-option" style="background-color: #5C6BC0;" data-color="#5C6BC0"></div>
+                        <div class="color-option" style="background-color: #EC407A;" data-color="#EC407A"></div>
+                        <div class="color-option" style="background-color: #FFA000;" data-color="#FFA000"></div>
+                        <div class="color-option" style="background-color: #FF5722;" data-color="#FF5722"></div>
+                        <div class="color-option" style="background-color: #009688;" data-color="#009688"></div>
+                    </div>
+                </div>
+                
+                <div class="option-group">
+                    <label for="text-style">টেক্সট স্টাইল</label>
+                    <select id="text-style">
+                        <option value="normal">সাধারণ</option>
+                        <option value="italic">ইটালিক</option>
+                        <option value="bold">বোল্ড</option>
+                        <option value="bold italic">বোল্ড ইটালিক</option>
+                    </select>
+                </div>
+                
+                <div class="option-group">
+                    <label>ব্যাকগ্রাউন্ড কালার</label>
+                    <div class="background-options">
+                        <div class="background-option selected" style="background-color: #ffffff;" data-bgcolor="#ffffff"></div>
+                        <div class="background-option" style="background-color: #f5f5f5;" data-bgcolor="#f5f5f5"></div>
+                        <div class="background-option" style="background-color: #fff8e1;" data-bgcolor="#fff8e1"></div>
+                        <div class="background-option" style="background-color: #e8f5e9;" data-bgcolor="#e8f5e9"></div>
+                        <div class="background-option" style="background-color: #e3f2fd;" data-bgcolor="#e3f2fd"></div>
+                        <div class="background-option" style="background-color: #f3e5f5;" data-bgcolor="#f3e5f5"></div>
+                        <div class="background-option" style="background-color: #ffebee;" data-bgcolor="#ffebee"></div>
+                        <div class="background-option" style="background-color: #e0f7fa;" data-bgcolor="#e0f7fa"></div>
+                        <div class="background-option" style="background-color: #fce4ec;" data-bgcolor="#fce4ec"></div>
+                        <div class="background-option" style="background-color: #e8eaf6;" data-bgcolor="#e8eaf6"></div>
+                    </div>
+                </div>
+                
+                <div class="option-group emoji-selector">
+                    <label for="emoji-select">ইমোজি যোগ করুন</label>
+                    <div class="emoji-options">
+                        <span class="emoji-option" data-emoji="❤️">❤️</span>
+                        <span class="emoji-option" data-emoji="😂">😂</span>
+                        <span class="emoji-option" data-emoji="😊">😊</span>
+                        <span class="emoji-option" data-emoji="😍">😍</span>
+                        <span class="emoji-option" data-emoji="🥰">🥰</span>
+                        <span class="emoji-option" data-emoji="😢">😢</span>
+                        <span class="emoji-option" data-emoji="🙏">🙏</span>
+                        <span class="emoji-option" data-emoji="✨">✨</span>
+                        <span class="emoji-option" data-emoji="🎉">🎉</span>
+                        <span class="emoji-option" data-emoji="🔥">🔥</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="preview-box" id="preview-box">
+                <div class="preview-text" id="preview-text">আপনার ক্যাপশন এখানে প্রদর্শিত হবে</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="copy-btn">
+                    <i class="far fa-copy"></i> কপি করুন
+                </button>
+                <button class="btn btn-secondary" id="clear-btn">
+                    <i class="fas fa-eraser"></i> ক্লিয়ার করুন
+                </button>
+                <button class="btn btn-primary" id="download-btn">
+                    <i class="fas fa-download"></i> ডাউনলোড করুন
+                </button>
+                <button class="btn btn-secondary" id="share-btn">
+                    <i class="fas fa-share-alt"></i> শেয়ার করুন
+                </button>
+            </div>
+        </div>
+        
+        <div class="sample-captions">
+            <h3>স্যাম্পল বাংলা ক্যাপশন</h3>
+            <div class="caption-tabs">
+                <div class="caption-tab active" data-type="all">সব</div>
+                <div class="caption-tab" data-type="sad">স্যাড</div>
+                <div class="caption-tab" data-type="romantic">রোমান্টিক</div>
+                <div class="caption-tab" data-type="motivational">মোটিভেশনাল</div>
+                <div class="caption-tab" data-type="funny">ফানি</div>
+                <div class="caption-tab" data-type="friendship">ফ্রেন্ডশিপ</div>
+            </div>
+            <div class="caption-list" id="caption-list">
+                <!-- Captions will be loaded here by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="copy-notification" id="copy-notification">
+            <i class="fas fa-check-circle"></i> ক্যাপশন কপি করা হয়েছে!
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // DOM Elements
+        const captionInput = document.getElementById('caption-input');
+        const fontFamily = document.getElementById('font-family');
+        const fontSize = document.getElementById('font-size');
+        const textAlign = document.getElementById('text-align');
+        const textStyle = document.getElementById('text-style');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const backgroundOptions = document.querySelectorAll('.background-option');
+        const emojiOptions = document.querySelectorAll('.emoji-option');
+        const previewText = document.getElementById('preview-text');
+        const previewBox = document.getElementById('preview-box');
+        const generateBtn = document.getElementById('generate-btn');
+        const generateSadBtn = document.getElementById('generate-sad-btn');
+        const generateRomanticBtn = document.getElementById('generate-romantic-btn');
+        const generateMotivationalBtn = document.getElementById('generate-motivational-btn');
+        const generateFunnyBtn = document.getElementById('generate-funny-btn');
+        const generateFriendshipBtn = document.getElementById('generate-friendship-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const captionList = document.getElementById('caption-list');
+        const captionTabs = document.querySelectorAll('.caption-tab');
+        const copyNotification = document.getElementById('copy-notification');
+        const settingsToggle = document.getElementById('settings-toggle');
+        const settingsContent = document.getElementById('settings-content');
+        
+        // Current settings
+        let currentColor = '#212121';
+        let currentBgColor = '#ffffff';
+        let isSettingsExpanded = true;
+        
+        // Expanded caption databases with more categories and captions
+        const banglaCaptions = {
+            general: [
+                "সুন্দর মুহূর্তগুলোকে ধরে রাখুন 💖",
+                "আজকের দিনটি আপনার জন্য আনন্দময় হোক 😊",
+                "ছোট ছোট জিনিসেই খুঁজে নিন সুখ ✨",
+                "আপনার স্বপ্ন পূরণের পথে শুভকামনা 🌟",
+                "প্রতিটি দিনই একটি নতুন সুযোগ ☀️",
+                "ভালোবাসা ছড়িয়ে দিন চারপাশে ❤️",
+                "আপনার হাসি যেন থাকে অমলিন 😄",
+                "জীবনকে উপভোগ করুন প্রতিটি মুহূর্ত 🎉",
+                "স্মৃতিগুলোকে ভালোবাসুন 📸",
+                "আজ একটি নতুন শুরু 🌱",
+                "সুখ খুঁজে পাওয়ার চেষ্টা করুন, তৈরি করবেন না 🔍",
+                "প্রতিটি শ্বাস-প্রশ্বাসে বেঁচে থাকার আনন্দ নিন 🌬️",
+                "আপনার নিজের গল্পের নায়ক হোন 🦸",
+                "সাদা কাগজের মতো নতুন করে শুরু করুন 📄",
+                "আপনার ভিতরের আলোকে জ্বালিয়ে রাখুন 💡"
+            ],
+            sad: [
+                "❝།།🥀💔বেঁচে থাকার জন্যে 'নিঃশ্বাস' এর চেয়ে 'বিশ্বাস' বেশি প্রয়োজন। যেখানে বিশ্বাস নেই সেখানে প্রতিটা শ্বাস'ই 'বিষশ্বাসের' মতো!❝།།🥀💔",
+                "কি বিশাল এই শুন্যতা নিয়ে, মৃত স্বপ্নের কফিনে জড়াই ভালোবাসা মাখা শ্রম!",
+                "💝🌞এক তামাটে তিনবার হাসতে না পারলে, একই ব্যথা আর দুঃখে বার বার কাঁদতে হবে কেন💝🌞",
+                "💕︵❝།།🤞সব ভাষা প্রকাশ করার জন্য শব্দ আছে, কিন্তু মুগ্ধতা প্রকাশ করার কোন শব্দ গোটা পৃথিবীতে নেই💕︵❝།།🤞",
+                "❝།།💔ভীষণ রকম প্রিয় কোন কিছুই জীবনে স্থায়ী হয় না….!❝།།🥀💔",
+                "একটা নির্দিষ্ট সময়ের পর মানুষ তার সবচেয়ে পছন্দের মানুষকে ভুলে যাওয়া শুরু করে।",
+                "🙂︵❝།།💔কথার আঘাতের ব্যথা, লাঠির আঘাতের চেয়েও বেশি যন্ত্রণার🙂︵❝།།💔",
+                "❝།།😊🥀সবার দূর্বলতা ভিন্ন, যেমন আমি অল্পতেই কাছের মানুষের থেকে দুঃখ পাই বেশি।❝།།😊🥀",
+                "︵❝།།🥀🌺পৃথিবীতে ভালবাসার চেয়ে ভালো মানুষ, ভালো মনের সঙ্গী ভীষণ প্রয়োজন, ভালোবাসা ছাড়া বেঁচে থাকা যায়, ভালো সঙ্গী ছাড়া নয়।︵❝།།😊🥀🌺",
+                "💚︵❝།།🌺আমি আমাকে মিস করি। সেই আগের আমি, আমার শক্তি, আমার হাসি, আমার ঔজ্জ্বল্য, আমি সেই আমিটাকে মিস করি।💚︵❝།།🌺",
+                "💚︵❝།།🌺কাউকে ঠকানো বড্ড সহজ,🥀 কিন্তু ঠকানোর পর যা পাবেন, তা হজম করা কঠিন।🥀🙂💔",
+                "︵❝།།💚🌺প্রিয়তমেষু তুমি যতটা ভেঙেছো,🥀💔 একদিন তার চেয়েও উঁচু ভালোবাসার দালানে আমি সংসার করব।︵❝།།😊💚🌺",
+                "🌸😊–কারো বিশ্বাস নষ্ট করো না, হয়তো তুমি জিতবে, কিন্তু চিরোদিনের জন্য তুমি এমন কাউকে হারাবে,🥀 যে তোমাকে বিশ্বাস করতো খুব।🥀🙂💔",
+                "︵❝།།😊💚🌺আমি ফেঁসে যাই, তোমার উড়া চুলে, তুমি হাসলে ঐ গালে আমি ফেঁসে যাই।︵❝།།😊💚🌺",
+                "❤️❥❥জানি তুমি বহু দূর, তবু তোমার কথার সুর বাজে আমার বেসুর জীবনে🥀🙂💔",
+                "😊🥀💔তুমি আমাকে কান্না উপহার দিয়েছো, তোমার দেওয়া উপহারটি এত মুমূর্ষু হতে পারে জানা ছিলো না।😊🥀💔",
+                "আজকাল সময়ের সাথে সাথে নিজেকে বদলে ফেলা শিখে গেছি। ─༅༎•🌺⭐🌸༅༎•─",
+                "💖🍀💖 লড়াই করতে জানা মানুষের, কিসের হারার ভয়। ❤️❥❥═🔸",
+                "✠•💠🌸💠•✠ কোন একদিন এই আমিটাও স্মৃতি হয়ে যাবো ✠•💠🌸💠•✠",
+                "╔━━━━︵❝།།😊💚🌺━━━━╗ যে এক বার নিজেকে খোঁজে নেয়, সে আর কখনো হারায় না। ╚━━━━︵❝།།😊💚🌺━━━━╝",
+                "💠✦💟✦💠 সব ঠিকানা জেনে গেলে, হারাবো কোন অজানায়। 💠✦💟✦💠",
+                "╔━━━━❤️❥❥═🔸━━━━╗ চার‌টে দেয়াল মা‌নেই তো ঘর নয়, নি‌জের ঘ‌রেও অ‌নেক মানুষ পর হয় । ╚━━━━❤️❥❥═🔸━━━━╝",
+                "🌸💠•✠ প্রত্যেক আয়নায় মানুষকে আলাদা আলাদা দেখে💟, প্রত্যেক জোঁড়া চোখেও🥀🙂💔",
+                "🥀💔অভিমান করে কথা বলা বন্ধু করার পর দেখি, সেও আর চায় না কথা বলতে।🥀💔",
+                "︵❝།།😊💚প্রতিবার প্রেমে নতুন জনম,জীবন কি করে একটাই! যতভাগে ভাগ করো না প্রেম, হৃদয় কিন্তু একটাই।︵❝།།😊💚",
+                "🥀🙂💔এত সংকট, এত বিস্ময়, এত অপ্রাপ্তি। যোগফল টানতে টানতে খাতা ফুরিয়ে যায়।🥀🙂💔",
+                "💔══😊কিছু আফসোস আর কিছু স্বস্তি নিয়ে যত কথা! যত ভালো থাকা।💔══😊",
+                "🥀🙂💔তোমার সাথে দেখা করা এতটা জরুরী নয়! যতটা জরুরী তোমার সাথে মিশে যাওয়া🥀🙂💔",
+                "🌷ღـــــــ🌺আমি তোমার মতো নই, তোমার জীবন খুব গুছানো, তুমি সাজানো কোন বই।🌸🌹🌿",
+                "🌻━❖কার্নিশে তুলে রাখলাম তোমার ভালোবাসে দেওয়া বেদনার নীল।🥀🙂💔",
+                "╔━━━🔸━🥀🙂💔━🔸━━╗ যতই ভালো হোন সবার কাছে, ভালো হতে পারবেন না ╚━🔸━━🥀🙂💔━🔸━━╝",
+                "–ღღ🦋🖤✨━ আঘাত ভুলে গেলেও আঘাতকারীকে ভুলা যায় না। –ღღ🦋🖤✨━",
+                "–ღღ🦋🌸বছর কুঁড়ি পরে, কোন এক পড়ন্ত বিকেলে,🌹🌿 পাশাপাশি হাটার নিমন্ত্রণ রইলো। 🌸🌹🌿",
+                "💔══😊─অতিরিক্ত মিশুক স্বভাব, অসম্মান ভয়ে আনে🥀🙂💔❥",
+                "╔━━━🌷ღـــــــ🌺༏༏━━━╗ নিজের চেয়ে ভালো কাউকে পেলে অভিনন্দন জানাতাম। ╚━━━🌷ღـــــــ🌺༏༏━━━╝",
+                "╔━━━🌷ღـــــــ🌺সব মনে রাখার উচিত, কে পাশে ছিলো, আর কে ছিলো না🌷ღـــــــ🌺༏༏━━━╗",
+                "💚🌸🥀কেমন জানি হারিয়ে যাচ্ছি 🌻 দিন দিন ঠিকানা বিহীন😊💔💔",
+                "🌻━❖❖🌻❖❖━━🌻 যেখানে নিজে বেমানান, সেখানে আবার কিসের অভিমান। 🌻━❖❖🌻❖❖━━🌻",
+                "╔═══😊💔💔══════❤️════😊💔💔════╗ কিছু শূন্যতা পূর্ণতার চাইতেও বেশি পূরণীয়। ╚═══😊💔💔══════❤️════😊💔💔════╝"
+            ],
+            romantic: [
+                "তুমি আমার প্রতিটি দিনকে আলোকিত কর ☀️",
+                "ভালোবাসা শব্দটাই ছোট, কিন্তু অনুভূতিটা বিশাল ❤️",
+                "তোমার জন্য আমার হৃদয় সবসময় উন্মুক্ত 🚪",
+                "তুমি আমার জীবনের সবচেয়ে সুন্দর অনুভূতি 💫",
+                "প্রতিটি দিনই তোমাকে ভালোবাসি আরো বেশি করে 💕",
+                "তোমার ছোঁয়ায় আমার জীবন সুন্দর ✨",
+                "তুমি আমার হৃদয়ের রানী 👑",
+                "তোমার সাথে আমার সবসময়ের জন্য ⏳",
+                "ভালোবাসার কোনো শেষ নেই ♾️",
+                "তুমি আমার জীবনের অর্থ 💖",
+                "তোমার হাসি আমার আকাশের সবচেয়ে উজ্জ্বল তারা ⭐",
+                "তোমাকে ভালোবাসা আমার প্রতিটি শ্বাসের সাথে জড়িত 🌬️",
+                "তুমি ছাড়া আমার জীবন অসম্পূর্ণ 🧩",
+                "তোমার চোখেই আমি আমার ভবিষ্যৎ দেখি 🔮",
+                "প্রতিটি মুহূর্তে তোমাকে খুঁজে ফিরি 🕊️"
+            ],
+            motivational: [
+                "অসম্ভব বলে কিছু নেই 💪",
+                "স্বপ্ন দেখো, বিশ্বাস করো, অর্জন করো 🌠",
+                "ব্যর্থতা হলো সাফল্যের প্রথম ধাপ 🪜",
+                "কঠোর পরিশ্রম কখনো বিফলে যায় না ⚒️",
+                "আপনি যদি বিশ্বাস করেন, আপনি করতে পারবেন 🙌",
+                "আজকের সংগ্রামই আগামীকালের সাফল্য 🏆",
+                "কখনো হাল ছেড়ো না 🚫",
+                "সাফল্য আপনার দরজায় কড়া নাড়বে 🚪",
+                "আত্মবিশ্বাসই হলো সাফল্যের চাবিকাঠি 🔑",
+                "প্রতিবন্ধকতাই আপনাকে শক্তিশালী করে 💪",
+                "আপনার সীমাবদ্ধতাগুলোই আপনার সবচেয়ে বড় শক্তি 🛡️",
+                "প্রতিটি নতুন দিন নতুন সম্ভাবনা নিয়ে আসে 🌅",
+                "আপনার ভিতরের শক্তিকে জাগ্রত করুন 🦁",
+                "সাফল্যের কোনো শর্টকাট নেই, শুধু কঠোর পরিশ্রম আছে 🛣️",
+                "আপনি যা বিশ্বাস করেন, আপনি তাই হতে পারেন 🌈"
+            ],
+            funny: [
+                "জীবনটা স্যান্ডউইচের মতো, মাঝখানে সবচেয়ে ভালো অংশ 😂",
+                "আমি নয়, আমার আলসেমিটাই আমার সেরা বন্ধু 🛋️",
+                "ঘুম হলো আমার সুপারপাওয়ার, কিন্তু আমি এটা নিয়ন্ত্রণ করতে পারি না 😴",
+                "আমার ব্যাংক অ্যাকাউন্ট দেখে আমার ফোনই হ্যাং হয়ে যায় 📱",
+                "আমি জিমে যাই, কিন্তু লিফট দিয়ে উপরে উঠি 🏋️‍♂️",
+                "আমার ডায়েট শুরু হবে আগামীকাল... সবসময় আগামীকাল 🍕",
+                "আমি ভাবতাম আমি ধীর, কিন্তু আমি আসলে দ্রুতই শেষ করি 🐢",
+                "আমার মাথায় অনেক আইডিয়া, কিন্তু পাসওয়ার্ড ভুলে গেছি 🤔",
+                "আমি রান্না করতে পারি, কিন্তু ফায়ার অ্যালার্মও বাজাতে পারি 🔥",
+                "আমি ফিট নই, আমি শুধু ছোট টিশার্ট পরি 👕",
+                "আমার জীবন একটা রোলার কোস্টার, শুধু আনন্দের অংশটা নেই 🎢",
+                "আমি টাকা সঞ্চয় করি... পরে খরচ করার জন্য 💸",
+                "আমি ভোরবেলা উঠি... দুপুরে 😅",
+                "আমি ব্যায়াম করি... আমার ফোনের স্ক্রলিং আঙুলের জন্য 📲",
+                "আমি খুব বুদ্ধিমান... গুগল যখন আছে তখন 🤓"
+            ],
+            friendship: [
+                "সত্যিকারের বন্ধুত্ব কখনো শেষ হয় না ⏳",
+                "বন্ধুরা হলো আপনি নিজে বেছে নেওয়া পরিবার 👨‍👩‍👧‍👦",
+                "একটি ভালো বন্ধু আপনার সমস্ত বৃষ্টির দিনকে রৌদ্রোজ্জ্বল করে তুলবে 🌦️",
+                "বন্ধুত্ব হলো এক আত্মার দুই দেহে বাস করা 💞",
+                "সত্যিকারের বন্ধুরা একসাথে বড় হয়, একসাথে না থেকেও 🌱",
+                "বন্ধুত্ব হলো প্রেম ছাড়াই ভালোবাসা ❤️",
+                "একটি হাসি দিয়ে শুরু হয় বন্ধুত্ব, একটি হাসি দিয়েই তা টিকে থাকে 😊",
+                "বন্ধুরা হলো জীবনের মশাল, তারা অন্ধকারেও আলো দেয় 🔦",
+                "ভালো বন্ধুরা আপনার ইতিহাস জানেন, আপনার ভবিষ্যত বিশ্বাস করেন এবং আপনাকে এখনই গ্রহণ করেন 🕰️",
+                "বন্ধুত্ব হলো একমাত্র সিমেন্ট যা কখনোই ভাঙে না 🧱",
+                "বন্ধুরা হলো তারা, যখন অন্ধকার নেমে আসে তখন তারা জ্বলে ওঠে ✨",
+                "বন্ধুত্ব হলো সেই বাগান যেখানে ভালোবাসার ফুল ফোটে 🌷",
+                "একজন সত্যিকারের বন্ধু আপনার সমস্ত গল্প জানে এবং তবুও আপনাকে ভালোবাসে 📖",
+                "বন্ধুরা হলো জীবনের মশাল, তারা অন্ধকারেও পথ দেখায় 🕯️",
+                "বন্ধুত্ব হলো সেই জিনিস যা হৃদয়কে উষ্ণ করে এবং আত্মাকে আলোকিত করে 💫"
+            ]
+        };
+        
+        // Event Listeners
+        captionInput.addEventListener('input', updatePreview);
+        fontFamily.addEventListener('change', updatePreview);
+        fontSize.addEventListener('change', updatePreview);
+        textAlign.addEventListener('change', updatePreview);
+        textStyle.addEventListener('change', updatePreview);
+        generateBtn.addEventListener('click', generateCaption);
+        generateSadBtn.addEventListener('click', () => generateTypedCaption('sad'));
+        generateRomanticBtn.addEventListener('click', () => generateTypedCaption('romantic'));
+        generateMotivationalBtn.addEventListener('click', () => generateTypedCaption('motivational'));
+        generateFunnyBtn.addEventListener('click', () => generateTypedCaption('funny'));
+        generateFriendshipBtn.addEventListener('click', () => generateTypedCaption('friendship'));
+        copyBtn.addEventListener('click', copyCaption);
+        clearBtn.addEventListener('click', clearCaption);
+        downloadBtn.addEventListener('click', downloadCaption);
+        shareBtn.addEventListener('click', shareCaption);
+        settingsToggle.addEventListener('click', toggleSettings);
+        
+        // Color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                currentColor = option.getAttribute('data-color');
+                updatePreview();
+            });
+        });
+        
+        // Background selection
+        backgroundOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                backgroundOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                currentBgColor = option.getAttribute('data-bgcolor');
+                previewBox.style.backgroundColor = currentBgColor;
+            });
+        });
+        
+        // Emoji selection
+        emojiOptions.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                const currentText = captionInput.value;
+                const emojiToAdd = emoji.getAttribute('data-emoji');
+                captionInput.value = currentText + ' ' + emojiToAdd;
+                updatePreview();
+            });
+        });
+        
+        // Caption tabs
+        captionTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                captionTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                loadSampleCaptions(tab.getAttribute('data-type'));
+            });
+        });
+        
+        // Functions
+        function updatePreview() {
+            const text = captionInput.value || 'আপনার ক্যাপশন এখানে প্রদর্শিত হবে';
+            
+            previewText.style.fontFamily = fontFamily.value;
+            previewText.style.fontSize = fontSize.value;
+            previewText.style.textAlign = textAlign.value;
+            previewText.style.color = currentColor;
+            
+            // Apply text style
+            switch(textStyle.value) {
+                case 'italic':
+                    previewText.style.fontStyle = 'italic';
+                    previewText.style.fontWeight = 'normal';
+                    break;
+                case 'bold':
+                    previewText.style.fontWeight = 'bold';
+                    previewText.style.fontStyle = 'normal';
+                    break;
+                case 'bold italic':
+                    previewText.style.fontWeight = 'bold';
+                    previewText.style.fontStyle = 'italic';
+                    break;
+                default:
+                    previewText.style.fontWeight = 'normal';
+                    previewText.style.fontStyle = 'normal';
+            }
+            
+            previewText.textContent = text;
+        }
+        
+        function generateCaption() {
+            const allCaptions = [];
+            Object.values(banglaCaptions).forEach(category => {
+                allCaptions.push(...category);
+            });
+            const randomCaption = allCaptions[Math.floor(Math.random() * allCaptions.length)];
+            captionInput.value = randomCaption;
+            updatePreview();
+        }
+        
+        function generateTypedCaption(type) {
+            if (!banglaCaptions[type]) {
+                type = 'general';
+            }
+            
+            const captions = banglaCaptions[type];
+            const randomCaption = captions[Math.floor(Math.random() * captions.length)];
+            captionInput.value = randomCaption;
+            updatePreview();
+            
+            // Change color based on caption type
+            let color;
+            switch(type) {
+                case 'sad': color = '#5C6BC0'; break;
+                case 'romantic': color = '#EC407A'; break;
+                case 'motivational': color = '#FFA000'; break;
+                case 'funny': color = '#FF5722'; break;
+                case 'friendship': color = '#009688'; break;
+                default: color = '#212121';
+            }
+            
+            const colorOption = document.querySelector(`.color-option[data-color="${color}"]`);
+            if (colorOption) colorOption.click();
+        }
+        
+        function copyCaption() {
+            if (!captionInput.value) {
+                showNotification('কপি করার জন্য কোনো ক্যাপশন নেই', 'error');
+                return;
+            }
+            
+            // Show loading on button
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<div class="loading"></div> কপি হচ্ছে...';
+            copyBtn.disabled = true;
+            
+            navigator.clipboard.writeText(captionInput.value).then(() => {
+                showNotification('ক্যাপশন কপি করা হয়েছে!', 'success');
+                copyBtn.innerHTML = originalText;
+                copyBtn.disabled = false;
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+                showNotification('কপি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।', 'error');
+                copyBtn.innerHTML = originalText;
+                copyBtn.disabled = false;
+                
+                // Fallback for browsers without clipboard API
+                captionInput.select();
+                document.execCommand('copy');
+                showNotification('ক্যাপশন কপি করা হয়েছে! (ফলব্যাক)', 'success');
+            });
+        }
+        
+        function clearCaption() {
+            captionInput.value = '';
+            updatePreview();
+        }
+        
+        function downloadCaption() {
+            if (!captionInput.value) {
+                showNotification('ডাউনলোড করার জন্য কোনো ক্যাপশন নেই', 'error');
+                return;
+            }
+            
+            // Show loading on button
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<div class="loading"></div> প্রস্তুত হচ্ছে...';
+            downloadBtn.disabled = true;
+            
+            // Add temporary class for better screenshot
+            previewBox.classList.add('screenshot-mode');
+            
+            html2canvas(previewBox, {
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: currentBgColor
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'bangla-caption-' + new Date().getTime() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                previewBox.classList.remove('screenshot-mode');
+            }).catch(err => {
+                console.error('Error generating image: ', err);
+                showNotification('ডাউনলোড করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।', 'error');
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                previewBox.classList.remove('screenshot-mode');
+            });
+        }
+        
+        function shareCaption() {
+            if (!captionInput.value) {
+                showNotification('শেয়ার করার জন্য কোনো ক্যাপশন নেই', 'error');
+                return;
+            }
+            
+            // Show loading on button
+            const originalText = shareBtn.innerHTML;
+            shareBtn.innerHTML = '<div class="loading"></div> শেয়ার হচ্ছে...';
+            shareBtn.disabled = true;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'আমার বাংলা ক্যাপশন',
+                    text: captionInput.value,
+                    url: window.location.href
+                }).then(() => {
+                    shareBtn.innerHTML = originalText;
+                    shareBtn.disabled = false;
+                }).catch(err => {
+                    console.error('Error sharing:', err);
+                    shareBtn.innerHTML = originalText;
+                    shareBtn.disabled = false;
+                    fallbackShare();
+                });
+            } else {
+                fallbackShare();
+            }
+        }
+        
+        function fallbackShare() {
+            const text = captionInput.value;
+            const url = window.location.href;
+            const shareText = `${text}\n\nএই ক্যাপশন তৈরি হয়েছে বাংলা ক্যাপশন জেনারেটর থেকে: ${url}`;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('ক্যাপশন কপি করা হয়েছে! আপনি এখন এটি শেয়ার করতে পারেন', 'success');
+                    shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> শেয়ার করুন';
+                    shareBtn.disabled = false;
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                    showNotification('শেয়ার করতে সমস্যা হয়েছে। ম্যানুয়ালি কপি করুন।', 'error');
+                    shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> শেয়ার করুন';
+                    shareBtn.disabled = false;
+                });
+            } else {
+                // Fallback for browsers without clipboard API
+                captionInput.select();
+                document.execCommand('copy');
+                showNotification('ক্যাপশন কপি করা হয়েছে! আপনি এখন এটি শেয়ার করতে পারেন', 'success');
+                shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> শেয়ার করুন';
+                shareBtn.disabled = false;
+            }
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `copy-notification ${type}`;
+            notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.animation = 'fadeInOut 2s ease-in-out forwards';
+                setTimeout(() => {
+                    notification.remove();
+                }, 2000);
+            }, 10);
+        }
+        
+        function loadSampleCaptions(type = 'all') {
+            captionList.innerHTML = '';
+            
+            let captionsToShow = [];
+            
+            if (type === 'all') {
+                // Add all captions with their types
+                for (const [captionType, captions] of Object.entries(banglaCaptions)) {
+                    captions.forEach(caption => {
+                        captionsToShow.push({text: caption, type: captionType});
+                    });
+                }
+            } else {
+                // Add only specific type captions
+                if (banglaCaptions[type]) {
+                    banglaCaptions[type].forEach(caption => {
+                        captionsToShow.push({text: caption, type: type});
+                    });
+                }
+            }
+            
+            // Shuffle the array to show random order
+            captionsToShow = shuffleArray(captionsToShow);
+            
+            // Display the captions
+            captionsToShow.forEach(caption => {
+                const item = document.createElement('div');
+                item.className = `caption-item ${caption.type}`;
+                item.textContent = caption.text;
+                
+                // Add copy button to each caption
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                copyBtn.title = 'কপি করুন';
+                copyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    captionInput.value = caption.text;
+                    updatePreview();
+                    copyCaption();
+                });
+                
+                item.appendChild(copyBtn);
+                
+                item.addEventListener('click', () => {
+                    captionInput.value = caption.text;
+                    updatePreview();
+                    
+                    // Change color based on caption type
+                    let color;
+                    switch(caption.type) {
+                        case 'sad': color = '#5C6BC0'; break;
+                        case 'romantic': color = '#EC407A'; break;
+                        case 'motivational': color = '#FFA000'; break;
+                        case 'funny': color = '#FF5722'; break;
+                        case 'friendship': color = '#009688'; break;
+                        default: color = '#212121';
+                    }
+                    
+                    const colorOption = document.querySelector(`.color-option[data-color="${color}"]`);
+                    if (colorOption) colorOption.click();
+                });
+                captionList.appendChild(item);
+            });
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        function toggleSettings() {
+            isSettingsExpanded = !isSettingsExpanded;
+            
+            if (isSettingsExpanded) {
+                settingsContent.classList.remove('collapsed');
+                settingsContent.classList.add('expanded');
+                settingsToggle.classList.remove('collapsed');
+            } else {
+                settingsContent.classList.remove('expanded');
+                settingsContent.classList.add('collapsed');
+                settingsToggle.classList.add('collapsed');
+            }
+        }
+        
+        // Initialize
+        updatePreview();
+        loadSampleCaptions();
+        
+        // Add screenshot mode style
+        const style = document.createElement('style');
+        style.textContent = `
+            .screenshot-mode {
+                padding: 40px;
+                box-shadow: 0 0 0 1px #eee;
+                border-radius: 15px;
+            }
+            .copy-notification.error {
+                background-color: #F44336;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
